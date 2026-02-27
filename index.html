@@ -3,14 +3,21 @@
 <head>
   <title> Personal website of Jonas Frerick </title>
   <style>
+    html, body {
+    height: 100%;
+    margin: 0;
+}
     body { 
       font-family: Arial; 
       text-align: center; 
       margin-top: 50px; 
+    }
+    body {
       background-image: url("images/background.png");
-      background-size: cover;
-      background-color: black;  /* fills empty space */
-      background-position: center;   /* Centers the image */
+    background-size: cover;          /* Fill entire screen */
+    background-position: top center; /* Stick to top */
+    background-repeat: no-repeat;
+    background-attachment: fixed;    /* Optional: prevents scrolling effect */
   }
   </style>
 </head>
