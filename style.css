@@ -1,8 +1,10 @@
 .content {
-  max-width: 700px;   /* limits width */
-  margin: 0 auto;     /* centers it horizontally */
-  padding: 0 16px;    /* adds some space on small screens */
-  
+  max-width: 700px;        /* keeps the box narrow */
+  margin: 0 auto;          /* centers the box horizontally */
+  padding: 20px;           /* inner spacing */
+  background-color: rgba(0,0,0,0.5); /* semi-transparent background */
+  border-radius: 10px;
+  text-align: left;         /* left-aligns text inside the box */
 }
 p {
   color: white;
