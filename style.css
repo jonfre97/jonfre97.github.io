@@ -13,10 +13,10 @@ h1 {
   margin-top: 40px;
 }
 a {
-  color: white; /* normal link color */
+  color: #DEDEDE; /* normal link color */
   text-decoration: none; /* optional: remove underline */
 }
-a:link { color: white; }    /* normal, unvisited link */
-a:visited { color: blue; }  /* visited link */
-a:hover { color: blue; } /* mouse over */
-a:active { color: blue; } /* clicked */
+a:link { color: #DEDEDE; }    /* normal, unvisited link */
+a:visited { color: #C9C7C7; }  /* visited link */
+a:hover { color: #C9C7C7; } /* mouse over */
+a:active { color: #C9C7C7; } /* clicked */
