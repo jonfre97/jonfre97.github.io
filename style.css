@@ -12,3 +12,11 @@ h1 {
   text-align: center;
   margin-top: 40px;
 }
+a {
+  color: white; /* normal link color */
+  text-decoration: none; /* optional: remove underline */
+}
+a:link { color: white; }    /* normal, unvisited link */
+a:visited { color: blue; }  /* visited link */
+a:hover { color: blue; } /* mouse over */
+a:active { color: blue; } /* clicked */
