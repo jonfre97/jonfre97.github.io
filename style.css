@@ -7,10 +7,10 @@
   text-align: left;         /* left-aligns text inside the box */
 }
 p {
-  color: white;
+  color: black;
 }
 h1 {
-  color: white !important;; 
+  color: #2C2C54 !important;; 
   text-align: center;
   margin-top: 40px;
 }
