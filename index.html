@@ -34,26 +34,162 @@
       height: auto;
       border-radius: 50%;
     }
+
+    /* Tabs */
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .tabs ul {
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .tabs a {
+      display: inline-block;
+      padding: 8px 14px;
+      text-decoration: none;
+      color: #111;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .tabs a:hover {
+      border-color: rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.04);
+    }
+
+    .tab-section {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+      text-align: left;
+    }
+
+    /* Keep Home similar to current look */
+    #home.tab-section {
+      text-align: center;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    /* Give content a little spacing below the sticky tabs */
+    .page-wrap {
+      padding-top: 20px;
+    }
+
+    /* Optional: make paragraphs readable against background */
+    .content, .tab-section {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    /* But keep the header area unboxed */
+    #home .content {
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-  <img src="images/profile_pic.jpg" alt="My Profile Picture">
-  <h1>Ciao, I'm Jonas! </h1>
-</div>
+  <nav class="tabs">
+    <ul>
+      <li><a href="#home" data-tab="home">Home</a></li>
+      <li><a href="#publications" data-tab="publications">Publications</a></li>
+      <li><a href="#cv" data-tab="cv">CV</a></li>
+    </ul>
+  </nav>
 
-  <div class="content">
-    <p>Welcome to my personal website (which is clearly under construction). I am an astroparticle physicist currently based at the <a href="https://www.phys.uniroma1.it/it" target="_blank">Physics Department of Sapienza University of Rome</a>.
-    My research focuses on the overlap between particle physics, cosmology and astrophysics. Currently, I am mostly working on light and ultralight (WISPy) physics beyond the Standard Model, in particular
-    as part of <a href="https://inspirehep.net/authors/1498218?ui-citation-summary=true" target="_blank">Andrea Caputo's</a> ERC StG grant <a href="https://cordis.europa.eu/project/id/101117510" target="_blank">CosmoSax</a>.
-    Furthermore, I have a strong interest in Big Bang Nucleosynthesis, in particular when considered as a tool to constrain BSM physics.
+  <div class="page-wrap">
+    <!-- HOME (existing content) -->
+    <section id="home" class="tab-section active">
+      <div class="header">
+        <img src="images/profile_pic.jpg" alt="My Profile Picture">
+        <h1>Ciao, I'm Jonas! </h1>
+      </div>
 
-    I have spent the time of my PhD in Hamburg working at DESY under supervision of Kai Schmidt-Hoberg. In 2024, I have obtained the degree from the University of Hamburg. The thesis focused on dark radiation
-    arising from solar production of dark photons and the effects of B-L dark photon dark matter.
+      <div class="content">
+        <p>Welcome to my personal website (which is clearly under construction). I am an astroparticle physicist currently based at the <a href="https://www.phys.uniroma1.it/it" target="_blank">Physic[...] My research focuses on the overlap between particle physics, cosmology and astrophysics. Currently, I am mostly working on light and ultralight (WISPy) physics beyond the Standard Model, in pa[...] as part of <a href="https://inspirehep.net/authors/1498218?ui-citation-summary=true" target="_blank">Andrea Caputo's</a> ERC StG grant <a href="https://cordis.europa.eu/project/id/101117510" t[...] Furthermore, I have a strong interest in Big Bang Nucleosynthesis, in particular when considered as a tool to constrain BSM physics.
 
-    For my Bachelor and Master degree, I studied in Aachen at the RWTH. Both theses were supervised by Felix Kahlhoefer who introduced me to both the world of academia and the fascination of the dark sector.
+        I have spent the time of my PhD in Hamburg working at DESY under supervision of Kai Schmidt-Hoberg. In 2024, I have obtained the degree from the University of Hamburg. The thesis focused on da[...] arising from solar production of dark photons and the effects of B-L dark photon dark matter.
 
-    </p>
+        For my Bachelor and Master degree, I studied in Aachen at the RWTH. Both theses were supervised by Felix Kahlhoefer who introduced me to both the world of academia and the fascination of the d[...] 
+        </p>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications" class="tab-section">
+      <h2>Publications</h2>
+      <p>
+        Add your publications here. For example, you can link your INSPIRE profile:
+        <a href="https://inspirehep.net/authors/1498218?ui-citation-summary=true" target="_blank">INSPIRE-HEP</a>.
+      </p>
+      <ul>
+        <li><em>Coming soon…</em></li>
+      </ul>
+    </section>
+
+    <!-- CV -->
+    <section id="cv" class="tab-section">
+      <h2>CV</h2>
+      <p>
+        Add your CV here. If you have a PDF, you can upload it to the repo (e.g. <code>files/JonasFrerick_CV.pdf</code>) and link it.
+      </p>
+      <ul>
+        <li><em>Coming soon…</em></li>
+      </ul>
+    </section>
   </div>
+
+  <script>
+    (function() {
+      function setActive(tabId) {
+        var sections = document.querySelectorAll('.tab-section');
+        sections.forEach(function(s) {
+          s.classList.toggle('active', s.id === tabId);
+        });
+      }
+
+      function resolveTabFromHash() {
+        var hash = (window.location.hash || '#home').replace('#', '');
+        if (!document.getElementById(hash)) hash = 'home';
+        return hash;
+      }
+
+      // Initial
+      setActive(resolveTabFromHash());
+
+      // Click handling
+      document.querySelectorAll('.tabs a[data-tab]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var tabId = a.getAttribute('data-tab');
+          if (!tabId) return;
+          e.preventDefault();
+          window.location.hash = tabId;
+          setActive(tabId);
+        });
+      });
+
+      // Back/forward
+      window.addEventListener('hashchange', function() {
+        setActive(resolveTabFromHash());
+      });
+    })();
+  </script>
 </body>
 </html>
