@@ -139,13 +139,12 @@
         </p>
         <p>
             For my Bachelor and Master degree, I studied in Aachen at the RWTH. Both theses were supervised by <a href="https://inspirehep.net/authors/1078191?ui-citation-summary=true" target="_blank">Felix Kahlhoefer</a> who introduced me to both the world of academia and the fascination of hunting dark matter.
-
         </p>
       </div>
     </section>
 
     <!-- PUBLICATIONS -->
-    <section id="publications" class="tab-section">
+   <!-- <section id="publications" class="tab-section">
       <h2>Publications</h2>
       <p>
         Here is a list of all my scientific publications. For more details please visit my <a href="https://inspirehep.net/authors/1989970?ui-citation-summary=true" target="_blank">INSPIRE page</a>.
@@ -153,7 +152,81 @@
       <ul>
         <li><em>Coming soon…</em></li>
       </ul>
-    </section>
+    </section>-->
+
+    <ol class="pubs" id="pub-list" reversed><li><em>Loading…</em></li></ol>
+
+    <script>
+    (async () => {
+      const list = document.getElementById("pub-list");
+      const url = "https://inspirehep.net/api/literature"
+        + "?q=" + encodeURIComponent("authors.recid:1989970")
+        + "&sort=mostrecent&size=100"
+        + "&fields=titles,authors.full_name,author_count,arxiv_eprints,dois,publication_info,control_number";
+    
+      const initials = (name) => {
+        const [last, first] = name.split(", ");
+        if (!first) return name;
+        const ini = first.split(/[\s-]+/).filter(Boolean).map(p => p[0] + ".").join(" ");
+        return ini + " " + last;
+      };
+      const el = (tag, text, parent) => {
+        const e = document.createElement(tag);
+        if (text) e.textContent = text;
+        if (parent) parent.appendChild(e);
+        return e;
+      };
+    
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        list.innerHTML = "";
+    
+        for (const hit of data.hits.hits) {
+          const m = hit.metadata;
+          const li = el("li", "", list);
+    
+          // Authors
+          const names = (m.authors || []).map(a => initials(a.full_name));
+          const total = m.author_count || names.length;
+          let authorText = names.slice(0, 10).join(", ");
+          if (total > 10) authorText += " et al.";
+          li.append(authorText, document.createElement("br"));
+
+      // Title (bold, linked to DOI, arXiv or INSPIRE)
+      const doi = m.dois?.[0]?.value;
+      const arxiv = m.arxiv_eprints?.[0]?.value;
+      const href = doi ? "https://doi.org/" + doi
+                 : arxiv ? "https://arxiv.org/abs/" + arxiv
+                 : "https://inspirehep.net/literature/" + m.control_number;
+      const strong = el("strong", "", li);
+      const a = el("a", m.titles?.[0]?.title || "Untitled", strong);
+      a.href = href; a.target = "_blank";
+      li.append(",", document.createElement("br"));
+
+      // Journal reference
+      const pi = m.publication_info?.[0];
+      if (pi?.journal_title) {
+        el("em", pi.journal_title, li);
+        li.append(" ");
+        if (pi.journal_volume) { el("strong", pi.journal_volume, li); li.append(" "); }
+        if (pi.year) li.append("(" + pi.year + ")");
+        const page = pi.artid || pi.page_start;
+        if (page) li.append(" " + page);
+        li.append(", ");
+      }
+
+      // arXiv link
+      if (arxiv) {
+        const ax = el("a", "arXiv:" + arxiv, li);
+        ax.href = "https://arxiv.org/abs/" + arxiv; ax.target = "_blank";
+      }
+    }
+  } catch (e) {
+    list.innerHTML = '<li>Could not load publications. Please see my INSPIRE page.</li>';
+  }
+})();
+</script>
 
     <!-- CV -->
     <section id="cv" class="tab-section">
