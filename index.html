@@ -153,7 +153,7 @@
         <li><em>Coming soon…</em></li>
       </ul>
     </section>-->
-
+  <section id="publications" class="tab-section">
     <ol class="pubs" id="pub-list" reversed><li><em>Loading…</em></li></ol>
 
     <script>
@@ -220,14 +220,14 @@
       if (arxiv) {
         const ax = el("a", "arXiv:" + arxiv, li);
         ax.href = "https://arxiv.org/abs/" + arxiv; ax.target = "_blank";
+          }
+        }
+      } catch (e) {
+        list.innerHTML = '<li>Could not load publications. Please see my INSPIRE page.</li>';
       }
-    }
-  } catch (e) {
-    list.innerHTML = '<li>Could not load publications. Please see my INSPIRE page.</li>';
-  }
-})();
-</script>
-
+    })();
+    </script>
+    </section>
     <!-- CV -->
     <section id="cv" class="tab-section">
       <h2>CV</h2>
